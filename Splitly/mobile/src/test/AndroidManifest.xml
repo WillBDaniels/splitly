@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.appsbywill.splitly" >
 
-    <uses-sdk android:minSdkVersion="16" />
-
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!--
@@ -15,6 +13,7 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <uses-sdk android:minSdkVersion="16" />
 
     <application
         android:allowBackup="true"
@@ -34,10 +33,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ListTabs"
-            android:label="@string/title_activity_list_tabs" >
         </activity>
     </application>
 

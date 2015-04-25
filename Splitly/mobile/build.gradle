@@ -17,6 +17,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
+    sourceSets {
+        androidTest.setRoot('src/test/java/com/appsbywill/splitly')
+
+    }
 }
 
 dependencies {
@@ -25,4 +32,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.google.android.gms:play-services:7.0.0'
+    androidTestCompile  'junit:junit:4.11'
+
 }
