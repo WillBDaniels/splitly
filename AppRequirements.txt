@@ -1,0 +1,16 @@
+App to help figure out and automatically split bills
+waiter takes order
+waiter enters order like normal into computer
+computer syncs with app
+app generates token for table
+at the end of the meal, token is presented for users to login to the app and use
+the users can select which portion of the meal they want to pay for (line-item nice graphics)
+un-chosen items split equally, or as users desire
+
+App Name: Splitly (website: Split.ly or Split.io) 
+
+
+
+low priority
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+maybe have the waiter auto-figure out who's items are who's
