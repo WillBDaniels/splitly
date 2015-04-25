@@ -26,6 +26,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -261,6 +272,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
+            sendHttpPost("https://apis.cert.vantiv.com/v1/credit/sale?sp=1", "5cd07ecb9583427ba635cbb0308b4b88$$#$$OX9Wk75ADK6AzK8gAS0PuAElPv9RwKC0$$#$$2016-04-25$$#$$dev_key$$#$$SHA512withRSA$$#$$RSA$$#$$1$$#$$71F8B24E8A0256850A2DE5DE8DE49A662D4F1D0551A0F3F6D58918B07AEA68886A8D141C9E864C9E371AEC8F6E8CCCA7B24855A9AFE49D87025936B4CE935E1C2F77EBD346E6098A9D83A678AC40AA9780427DB2C1345BF2A0364E27A369EDFB04E9B09390B7FA2DDBEE9CA9DB3AA7C739E6ED8BF44F888C3726E0E2B4902E0D9756EC99B746B167060BA4C38B4536FFF567A6FBFC63B6883D6C7882536DDFC0A2DF2DCD6C9B920EB6BEC92F8AC3F507AFB29A8D68F3ECD15045EF8348B0E7CCDB537D11EE1702FB94360B223FFBBC1F2B010410BA8C78E0BCFA83FFA1893690E6399D899F92C3D44EF8454F80004F38696C7EC779094D3634F41D46C1DA6BE4", "");
 
             try {
                 // Simulate network access.
@@ -300,6 +312,40 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
         }
     }
+
+    private void sendHttpPost(String endPoint, String licenseid, String json){
+        HttpURLConnection soapConn = null;
+        try {
+            URL url = new URL(endPoint);
+            URLConnection connection = url.openConnection();
+            soapConn = (HttpURLConnection) connection;
+            soapConn.setRequestProperty("licenseid", licenseid);
+            soapConn.setRequestProperty("Content-Type","application/json; charset=utf-8");
+            soapConn.setRequestProperty("Content-Length", String.valueOf(json.getBytes().length));
+            soapConn.setRequestMethod( "POST" );
+            soapConn.setDoOutput(true);
+            soapConn.setDoInput(true);
+            OutputStreamWriter bw = new OutputStreamWriter(soapConn.getOutputStream());
+            bw.write(json);
+            BufferedReader br;
+            if (soapConn.getResponseCode() > 200){
+                br = new BufferedReader(new InputStreamReader(soapConn.getErrorStream()));
+            }else{
+                br = new BufferedReader(new InputStreamReader(soapConn.getInputStream()));
+            }
+            String line;
+            while ((line = br.readLine()) != null){
+                System.out.println(line);
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace(System.err);
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
 
